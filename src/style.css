@@ -1,0 +1,115 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: #f0f0f0;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+.app {
+  padding: 20px;
+}
+
+.form {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 320px;
+  margin: 0 auto 30px;
+}
+
+input,
+select {
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+button {
+  padding: 10px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+button:hover {
+  background: #0056b3;
+}
+
+.story-card {
+  width: 300px;
+  height: 533px;
+  margin: 0 auto;
+  border-radius: 20px;
+  overflow: hidden;
+  color: white;
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+}
+
+/* Grote 'GOAL' tekst achteraan */
+.goal-bg-text {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  transform: translateY(-50%);
+  font-size: 140px;           /* lekker groot */
+  font-weight: 900;
+  color: rgba(0, 128, 0, 0.15);  /* transparant groen */
+  pointer-events: none;
+  user-select: none;
+  z-index: 1;
+  letter-spacing: 0;          /* strak tegen elkaar */
+  white-space: nowrap;        /* 1 regel */
+  font-family: 'Poppins', sans-serif;
+}
+
+
+/* Content met logo, spelerfoto en tekst */
+.content-overlay {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 15px;
+}
+
+.logo {
+  width: 60px;
+  margin-bottom: 15px;
+  /* filter: brightness(0) invert(1); */
+}
+
+/* Spelerfoto zonder ronde vorm, groot centraal */
+.player-photo {
+  width: 220px;
+  height: 220px;
+  object-fit: contain;
+  border-radius: 0; /* geen ronding */
+  /* border: 3px solid white; */
+  margin-bottom: 20px;
+}
+
+.info-text h2 {
+  font-size: 40px;
+  margin: 5px 0;
+  font-weight: 700;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7);
+}
+
+.info-text p {
+  font-size: 20px;
+  margin: 2px 0;
+  font-weight: 600;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);
+}
