@@ -1,10 +1,32 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=The+Seasons:wght@400;700&display=swap');
 
 body {
   margin: 0;
   background-color: #121212;
   color: white;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'The Seasons', serif;
+}
+
+/* Bebas Neue voor koppen, score, rugnummer, namen */
+h1,
+h2,
+.goal-bg-text,
+.player-name,
+.jersey-inline,
+.goal-score,
+.goal-minute,
+.team-home,
+.team-away,
+.vs {
+  font-family: 'Bebas Neue', sans-serif;
+  letter-spacing: 1px;
+}
+
+/* Optioneel: grotere hoofdletters voor Bebas Neue */
+h1, h2, .goal-bg-text, .player-name, .jersey-inline, .goal-score, .team-home, .team-away, .vs {
+  text-transform: uppercase;
 }
 
 .app {
@@ -75,6 +97,28 @@ h1 {
   box-shadow: 0 0 6px #1db954;
 }
 
+.form-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.short-input {
+  padding: 6px 8px;
+  font-size: 15px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.short-select {
+  padding: 6px 8px;
+  font-size: 15px;
+  border-radius: 6px;
+  border: none;
+  background: #f5f5f5;
+}
+
 .form button {
   margin-top: 16px;
   padding: 12px;
@@ -128,12 +172,16 @@ h1 {
   flex-direction: column;
   align-items: center;
   padding: 15px;
+  text-align: center;
 }
 
 .logo {
-  width: 60px;
+  width: 40px;
   margin-bottom: 15px;
-  /* filter: brightness(0) invert(1); */
+  margin-top: 15px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* Spelerfoto zonder ronde vorm, groot centraal */
@@ -147,16 +195,128 @@ h1 {
   z-index: 3;
 }
 
+.player-name {
+  font-size: 30px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: #fff;
+}
+
 .info-text h2 {
-  font-size: 40px;
+  font-size: 60px;
   margin: 5px 0;
   font-weight: 700;
-  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7);
+  line-height: 80%;
+  /* text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7); */
 }
 
 .info-text p {
-  font-size: 20px;
+  font-size: 25px;
   margin: 2px 0;
   font-weight: 600;
-  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);
+  /* text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7); */
+}
+
+/* Voeg toe aan je CSS-bestand, bijvoorbeeld StoryCard.css */
+.goal-details {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.goal-minute {
+  background: rgba(255,255,255,0.8);
+  color: #222;
+  padding: 0.3em 0.8em;
+  border-radius: 20px;
+  font-weight: bold;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  gap: 0.4em;
+}
+
+.goal-score {
+  background: #FFEB01;
+  color: #222;
+  padding: 0.3em 0.8em;
+  border-radius: 20px;
+  ;
+  font-size: 20px;
+}
+
+.no-player-image .content-overlay {
+  justify-content: center;
+  min-height: 100%;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.no-player-image .info-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+}
+
+.no-player-image h2 {
+  font-size: 64px;
+  margin: 20px 0 10px 0;
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+
+.no-player-image .info-text p {
+  font-size: 28px;
+  margin: 10px 0;
+}
+
+.no-player-image .goal-details {
+  margin-top: 18px;
+  gap: 1.5rem;
+}
+
+.no-player-image .goal-minute,
+.no-player-image .goal-score {
+  font-size: 1.5em;
+  padding: 0.4em 1.2em;
+}
+
+.teams-vs {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.2em;
+  margin-bottom: 8px;
+  font-size: 1em;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.team-home {
+  color: #FFEB01;
+}
+
+.vs {
+  color: #fff;
+  font-size: 0.75em;
+  opacity: 0.8;
+}
+
+.team-away {
+  color: #fff;
+}
+
+/* Stand (score) blauw met gele tekst bij gele achtergrond */
+.yellow-bg .goal-score {
+  background: #0B2749;
+  color: #FFEB01;
+}
+
+/* VCDB blauw bij gele achtergrond */
+.yellow-bg .team-home {
+  color: #0B2749;
 }

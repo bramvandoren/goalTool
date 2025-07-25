@@ -4,9 +4,9 @@ import StoryCard from './components/StoryCard';
 import './style.css';
 
 const players = [
-  { name: 'Jan Peeters', photo: '/players/jan.jpg' },
-  { name: 'Kobe Maes', photo: '/players/kobe.jpg' },
-  { name: 'Mehdi Azizi', photo: '/players/mehdi.gif' },
+  { name: 'Jan Peeters'},
+  { name: 'Kobe Maes'},
+  { name: 'Mehdi Azizi'},
 ];
 
 const backgrounds = [
@@ -21,6 +21,8 @@ function App() {
   const [background, setBackground] = useState(backgrounds[0]);
   const [uploadedPlayerImage, setUploadedPlayerImage] = useState(null);
   const [jerseyNumber, setJerseyNumber] = useState('10'); // rugnummer
+  const [opponent, setOpponent] = useState('Tegenstander');
+  const [isHomeTeam, setIsHomeTeam] = useState(true);
 
   const fileInputRef = useRef();
 
@@ -64,29 +66,76 @@ function App() {
   });
 };
 
-
-
-
   return (
     <div className="app" style={{ fontFamily: "'Poppins', sans-serif" }}>
       <h1>Goal tool</h1>
 
       <div className="form">
-        <label>Speler:</label>
-        <select
-          onChange={(e) => {
-            setSelectedPlayer(players[e.target.value]);
-            setUploadedPlayerImage(null);
-            fileInputRef.current.value = '';
-          }}
-          value={players.indexOf(selectedPlayer)}
-        >
-          {players.map((p, i) => (
-            <option key={i} value={i}>
-              {p.name}
-            </option>
-          ))}
-        </select>
+
+        <div className="form-row">
+          <label>Tegenstander:</label>
+          <input
+            type="text"
+            value={opponent}
+            onChange={e => setOpponent(e.target.value)}
+            placeholder="Naam tegenstander"
+            style={{ minWidth: 100 }}
+          />
+          <select
+            value={isHomeTeam ? "home" : "away"}
+            onChange={e => setIsHomeTeam(e.target.value === "home")}
+            className="short-select"
+            style={{ width: 70, marginLeft: 8 }}
+          >
+            <option value="home">Thuis</option>
+            <option value="away">Uit</option>
+          </select>
+        </div>
+        <div className="form-row">
+          <label>Speler:</label>
+          <select
+            value={selectedPlayer.name}
+            onChange={e =>
+              setSelectedPlayer(players.find(p => p.name === e.target.value))
+            }
+            style={{ minWidth: 120 }}
+          >
+            {players.map(p => (
+              <option key={p.name} value={p.name}>{p.name}</option>
+            ))}
+          </select>
+          <input
+            type="number"
+            min="1"
+            max="99"
+            value={jerseyNumber}
+            onChange={e => setJerseyNumber(e.target.value)}
+            className="short-input"
+            placeholder="Nr"
+            style={{ width: 50, marginLeft: 8 }}
+          />
+        </div>
+
+        <div className="form-row">
+          <label>Minuut:</label>
+          <input
+            type="number"
+            min="1"
+            max="120"
+            value={minute}
+            onChange={e => setMinute(e.target.value)}
+            className="short-input"
+            style={{ width: 60 }}
+          />
+          <label style={{ marginLeft: 8 }}>Score:</label>
+          <input
+            type="text"
+            value={score}
+            onChange={e => setScore(e.target.value)}
+            className="short-input"
+            style={{ width: 60 }}
+          />
+        </div>
 
         <label>Of upload eigen foto/GIF van speler:</label>
         <input
@@ -94,29 +143,6 @@ function App() {
           type="file"
           accept="image/png, image/jpeg, image/gif"
           onChange={onFileChange}
-        />
-
-        <label>Rugnummer:</label>
-        <input
-          type="number"
-          min="1"
-          value={jerseyNumber}
-          onChange={(e) => setJerseyNumber(e.target.value)}
-        />
-
-        <label>Minuut:</label>
-        <input
-          type="number"
-          value={minute}
-          min="1"
-          onChange={(e) => setMinute(e.target.value)}
-        />
-
-        <label>Score:</label>
-        <input
-          type="text"
-          value={score}
-          onChange={(e) => setScore(e.target.value)}
         />
 
         <label>Achtergrond:</label>
@@ -141,6 +167,8 @@ function App() {
         backgroundUrl={background.url}
         uploadedPlayerImage={uploadedPlayerImage}
         jerseyNumber={jerseyNumber}
+        opponent={opponent}
+        isHomeTeam={isHomeTeam}
       />
     </div>
   );
