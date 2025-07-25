@@ -6,13 +6,12 @@ import './style.css';
 const players = [
   { name: 'Jan Peeters', photo: '/players/jan.jpg' },
   { name: 'Kobe Maes', photo: '/players/kobe.jpg' },
-  { name: 'Mehdi Azizi', photo: '/players/mehdi.gif' }, // gif mogelijk
+  { name: 'Mehdi Azizi', photo: '/players/mehdi.gif' },
 ];
 
-// Achtergrond-afbeeldingen die in /public/ staan
 const backgrounds = [
-  { name: 'Donkerblauw', url: '/club_bg_darkblue.png' },  // moet je zelf toevoegen
-  { name: 'Geel', url: '/club_bg_yellow.png' },           // moet je zelf toevoegen
+  { name: 'Donkerblauw', url: '/club_bg_darkblue.png' },
+  { name: 'Geel', url: '/club_bg_yellow.png' },
 ];
 
 function App() {
@@ -21,6 +20,7 @@ function App() {
   const [score, setScore] = useState('1–0');
   const [background, setBackground] = useState(backgrounds[0]);
   const [uploadedPlayerImage, setUploadedPlayerImage] = useState(null);
+  const [jerseyNumber, setJerseyNumber] = useState('10'); // rugnummer
 
   const fileInputRef = useRef();
 
@@ -32,14 +32,40 @@ function App() {
   };
 
   const exportImage = () => {
-    const element = document.getElementById('story-card');
-    html2canvas(element, { useCORS: true }).then((canvas) => {
-      const link = document.createElement('a');
-      link.download = 'goal.png';
-      link.href = canvas.toDataURL();
-      link.click();
-    });
-  };
+  const element = document.getElementById('story-card');
+
+  // Preview afbeelding verbergen
+  const previewImg = element.querySelector('.player-photo');
+  previewImg.style.visibility = 'hidden';
+
+  // Full quality afbeelding toevoegen in dezelfde container als previewImg
+  const contentOverlay = element.querySelector('.content-overlay');
+
+  const fullQualityImg = document.createElement('img');
+  fullQualityImg.src = uploadedPlayerImage || selectedPlayer.photo;
+  fullQualityImg.style.position = 'absolute';
+  fullQualityImg.style.top = previewImg.offsetTop + 'px';
+  fullQualityImg.style.left = previewImg.offsetLeft + 'px';
+  fullQualityImg.style.width = previewImg.offsetWidth + 'px';
+  fullQualityImg.style.height = previewImg.offsetHeight + 'px';
+  fullQualityImg.style.objectFit = 'contain';
+  fullQualityImg.style.zIndex = '10';  // zorg dat die boven preview zit, maar onder rugnummer als dat moet
+  contentOverlay.appendChild(fullQualityImg);
+
+  html2canvas(element, { useCORS: true }).then((canvas) => {
+    const link = document.createElement('a');
+    link.download = 'goal.png';
+    link.href = canvas.toDataURL();
+    link.click();
+
+    // Herstel preview
+    previewImg.style.visibility = 'visible';
+    contentOverlay.removeChild(fullQualityImg);
+  });
+};
+
+
+
 
   return (
     <div className="app" style={{ fontFamily: "'Poppins', sans-serif" }}>
@@ -68,6 +94,14 @@ function App() {
           type="file"
           accept="image/png, image/jpeg, image/gif"
           onChange={onFileChange}
+        />
+
+        <label>Rugnummer:</label>
+        <input
+          type="number"
+          min="1"
+          value={jerseyNumber}
+          onChange={(e) => setJerseyNumber(e.target.value)}
         />
 
         <label>Minuut:</label>
@@ -106,6 +140,7 @@ function App() {
         score={score}
         backgroundUrl={background.url}
         uploadedPlayerImage={uploadedPlayerImage}
+        jerseyNumber={jerseyNumber}
       />
     </div>
   );

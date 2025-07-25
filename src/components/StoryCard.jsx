@@ -4,6 +4,7 @@ const StoryCard = ({
   score,
   backgroundUrl,
   uploadedPlayerImage,
+  jerseyNumber,
 }) => {
   return (
     <div
@@ -11,14 +12,13 @@ const StoryCard = ({
       className="story-card"
       style={{ backgroundImage: `url(${backgroundUrl})` }}
     >
-      {/* Grote transparante GOAL tekst als achtergrond */}
-      <div className="goal-bg-text">GOAL</div>
+      {/* Grote transparante rugnummer-achtergrondtekst */}
+      <div className="goal-bg-text">{jerseyNumber}</div>
 
       {/* Content overlay */}
       <div className="content-overlay">
         <img src="/club_logo.png" alt="Club logo" className="logo" />
 
-        {/* Spelerfoto/gif centraal, zonder ronde vorm */}
         <img
           src={uploadedPlayerImage || player.photo}
           alt={player.name}
@@ -29,7 +29,7 @@ const StoryCard = ({
           <h2>GOAL!</h2>
           <p>{player.name}</p>
           <p>
-            {minute}' – Stand: {score}
+            {minute}' | {score}
           </p>
         </div>
       </div>
